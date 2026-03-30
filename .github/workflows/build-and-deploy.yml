@@ -21,57 +21,17 @@ jobs:
       - uses: nicolasfara/build-check-deploy-sbt-action@1.0.44
         with:
           should-run-codecov: ${{ runner.os == 'Linux' }}
-          check-command: sbt +scalafmtCheckAll +scalafmtSbtCheck '+scalafixAll --check' +test +coverageAggregate
+          check-command: sbt +scalafmtCheckAll +scalafmtSbtCheck '+scalafixAll --check' +test
           should-deploy: false
           maven-central-username: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
           maven-central-password: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
           signing-key: ${{ secrets.SIGNING_KEY }}
           signing-password: ${{ secrets.SIGNING_PASSWORD }}
           codecov-token: ${{ secrets.CODECOV_TOKEN }}
-  release:
-    permissions:
-      contents: write
-      packages: write
-    concurrency:
-      # Only one release job at a time. Strictly sequential.
-      group: release-${{ github.workflow }}-${{ github.event.number || github.ref }}
-    needs:
-      - build
-    runs-on: ubuntu-latest
-    if: >-
-      !github.event.repository.fork
-      && (
-        github.event_name != 'pull_request'
-        || github.event.pull_request.head.repo.full_name == github.repository
-      )
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v6.0.2
-        with:
-          token: ${{ secrets.DEPLOYMENT_TOKEN }}
-      - name: Install Node
-        uses: actions/setup-node@v6.3.0
-        with:
-          node-version-file: package.json
-      - uses: nicolasfara/build-check-deploy-sbt-action@1.0.44
-        with:
-          build-command: true
-          check-command: true
-          deploy-command: |
-            npm install
-            npx semantic-release
-          retries-on-failure: 1
-          should-run-codecov: false
-          should-deploy: true
-          github-token: ${{ github.token }}
-          maven-central-username: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
-          maven-central-password: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
-          signing-key: ${{ secrets.SIGNING_KEY }}
-          signing-password: ${{ secrets.SIGNING_PASSWORD }}
+
   success:
     runs-on: ubuntu-24.04
     needs:
-      - release
       - build
     if: >-
       always() && (
