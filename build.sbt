@@ -44,7 +44,7 @@ ThisBuild / libraryDependencies ++= Seq(
   "org.scalatest" %% "scalatest" % "3.2.19" % Test,
   "org.apache.pekko" %% "pekko-actor-typed" % PekkoVersion,
   "com.typesafe.scala-logging" %% "scala-logging" % "3.9.5",
-  "ch.qos.logback" % "logback-classic" % "1.3.5"
+  "ch.qos.logback" % "logback-classic" % "1.3.16"
 )
 
 lazy val root = project
