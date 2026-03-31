@@ -41,7 +41,7 @@ ThisBuild / semanticdbEnabled := true
 ThisBuild / semanticdbVersion := scalafixSemanticdb.revision
 ThisBuild / wartremoverErrors ++= Warts.allBut(Wart.Any, Wart.Throw)
 ThisBuild / libraryDependencies ++= Seq(
-  "org.scalatest" %% "scalatest" % "3.2.19" % Test,
+  "org.scalatest" %% "scalatest" % "3.2.20" % Test,
   "org.apache.pekko" %% "pekko-actor-typed" % PekkoVersion,
   "com.typesafe.scala-logging" %% "scala-logging" % "3.9.6",
   "ch.qos.logback" % "logback-classic" % "1.5.32"
