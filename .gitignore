@@ -6,7 +6,7 @@ target
 
 # Metals
 /project/**/metals.sbt
-/.bloop
+.bloop/
 /.metals
 
 # IDEs
