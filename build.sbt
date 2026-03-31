@@ -43,7 +43,7 @@ ThisBuild / wartremoverErrors ++= Warts.allBut(Wart.Any, Wart.Throw)
 ThisBuild / libraryDependencies ++= Seq(
   "org.scalatest" %% "scalatest" % "3.2.19" % Test,
   "org.apache.pekko" %% "pekko-actor-typed" % PekkoVersion,
-  "com.typesafe.scala-logging" %% "scala-logging" % "3.9.5",
+  "com.typesafe.scala-logging" %% "scala-logging" % "3.9.6",
   "ch.qos.logback" % "logback-classic" % "1.5.32"
 )
 
