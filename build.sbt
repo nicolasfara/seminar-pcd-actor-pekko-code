@@ -1,5 +1,5 @@
 val scala3Version = "3.7.4"
-val PekkoVersion = "1.4.0"
+val PekkoVersion = "1.5.0"
 
 ThisBuild / scalaVersion := scala3Version
 ThisBuild / organization := "io.github.nicolasfara"
