@@ -12,7 +12,7 @@ class PrintMyRefActor(context: ActorContext[String]) extends AbstractBehavior[St
   
 object PrintMyRefActor:
   def apply(): Behavior[String] = Behaviors.setup(ctx => new PrintMyRefActor(ctx))
-  
+
 class MainActor(context: ActorContext[String]) extends AbstractBehavior[String](context): 
   def onMessage(msg: String): Behavior[String] = msg match
     case "start" =>
@@ -20,7 +20,7 @@ class MainActor(context: ActorContext[String]) extends AbstractBehavior[String](
       println(s"First: $firstRef")
       firstRef ! "printit"
       this
-  
+
 object MainActor:
   def apply(): Behavior[String] = Behaviors.setup(ctx => new MainActor(ctx))
 
