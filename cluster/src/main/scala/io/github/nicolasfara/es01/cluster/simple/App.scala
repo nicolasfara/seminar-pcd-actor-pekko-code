@@ -1,9 +1,8 @@
 package io.github.nicolasfara.es01.cluster.simple
 
 import org.apache.pekko.actor.typed.scaladsl.*
-import org.apache.pekko.actor.typed.Behavior
+import org.apache.pekko.actor.typed.*
 import com.typesafe.config.ConfigFactory
-import org.apache.pekko.actor.typed.ActorSystem
 
 object App:
   object RootBehavior:
@@ -13,8 +12,11 @@ object App:
     }
 
   def main(args: Array[String]): Unit =
-    val port = if args.isEmpty then Seq(25251, 25252, 0) else args.toSeq.map(_.toInt)
-    port.foreach(startup)
+    val ports =
+      if args.nonEmpty then args.toSeq.map(_.toInt)
+      else sys.env.get("CLUSTER_PORT").flatMap(_.toIntOption).map(Seq(_)).getOrElse(Seq(25251, 25252, 0))
+
+    ports.foreach(startup)
 
   private def startup(port: Int): Unit =
     val config = ConfigFactory.parseString(s"""
