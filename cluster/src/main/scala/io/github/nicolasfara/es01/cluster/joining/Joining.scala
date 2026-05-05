@@ -2,20 +2,18 @@ package io.github.nicolasfara.es01.cluster.joining
 
 import org.apache.pekko.actor.typed.*
 import org.apache.pekko.actor.typed.scaladsl.*
-import com.typesafe.config.ConfigFactory
 import org.apache.pekko.cluster.typed.Cluster
 import org.apache.pekko.cluster.typed.Join
 import org.apache.pekko.cluster.typed.Leave
+import com.typesafe.config.ConfigFactory
 
-def createActorSystem[A](port: Int, behavior: Behavior[A]) =
-  val config = ConfigFactory.parseString(s"""
-    pekko.remote.artery.canonical.port = $port
-    """).withFallback(ConfigFactory.load("application-joining.conf"))
-
-  ActorSystem[A](behavior, "ClusterSystem", config)
-
-@SuppressWarnings(Array("org.wartremover.warts.ThreadSleep"))
 @main def joining(): Unit =
+  def createActorSystem[A](port: Int, behavior: Behavior[A]) =
+    val config = ConfigFactory.parseString(s"""
+      pekko.remote.artery.canonical.port = $port
+      """).withFallback(ConfigFactory.load("application-joining.conf"))
+    ActorSystem[A](behavior, "ClusterSystem", config)
+
   val system1 = createActorSystem(25251, Behaviors.empty)
   val system2 = createActorSystem(25252, Behaviors.empty)
   val clusterSystem1 = Cluster(system1)
