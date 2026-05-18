@@ -56,16 +56,3 @@ Mandatory recovery behavior:
 * It must not assume the system is armed
 * Sensor events are ignored or logged
 * A correct PIN is required to return to `Disarmed`
-
----
-
-## Required Demonstration
-
-The project must show:
-
-* Cluster startup with multiple nodes
-* Keypad commands sent from a node
-* Sensor events sent from a different node
-* Message routing through cluster sharding
-* Correct alarm state transitions
-* Correct recovery behavior after entity restart or recreation
