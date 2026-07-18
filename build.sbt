@@ -1,4 +1,4 @@
-val scala3Version = "3.7.4"
+val scala3Version = "3.8.4"
 val PekkoVersion = "1.6.0"
 
 ThisBuild / scalaVersion := scala3Version
